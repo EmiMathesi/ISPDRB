@@ -19,6 +19,22 @@ body{
   height: 100%;
 }
 
+#articles-category{
+    position: fixed;
+    float: left;
+    background: #cac9cb;
+    width: 15%;
+    height: 100%;
+    padding-top: 3%;
+    padding-left: 3%;
+}
+
+#articles-main{
+    background: red;
+    width: 85%;
+    float: left;
+}
+
 .about-block{
     border: dashed #b477f6;
     margin-top: 2%;
