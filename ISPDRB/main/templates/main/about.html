@@ -1,0 +1,54 @@
+{% extends 'main/base.html' %}
+{% load static %}
+{% block title %} {{ title }} {% endblock  %}
+
+{% block body %}
+<div class="about-block">
+    <h1>О проекте</h1>
+    <p>Сайт ISPDRB представляет собой информационную систему, предназначенную для
+        жителей и гостей Республики Башкортостан.
+    </p>
+    <p>Каждому пользователю сайта доступны информативные и хорошо структурированные справочные
+        материалы о природных достопримечательностях Республики Башкортостан, тесно связанные
+        с интерактивной картой республики, предлагающей обширный функционал.</p>
+    <p>Информационная система спроектирована Рахимовым Э. Ф,
+        студентом 4 курса Уфимского Университета Науки и Технологий в 2023 году.
+    </p>
+    <ul>
+        <li>Факультет: Информатика и робототехника.</li>
+        <li>Кафедра: ГИС.</li>
+        <li>Специальность: 09.03.02 Информационные системы и технологии.</li>
+    </ul>
+</div>
+
+<div class="about-block">
+    <h1>Контакты</h1>
+    <ul>
+        <li>
+            <img src="{% static 'main/img/telegram.svg' %}"> Telegram: @mathesi
+        </li>
+        <li>
+            <img src="{% static 'main/img/email.svg' %}"> e-mail: emimathesi@mail.ru
+        </li>
+        <li>
+            <img src="{% static 'main/img/telephone.svg' %}"> Номер телефона: +7 927-936-66-99
+        </li>
+        <li>
+            <img src="{% static 'main/img/github.svg' %}"> <a href="https://github.com/EmiMathesi" target="_blank">Github</a>
+        </li>
+    </ul>
+</div>
+
+<div class="about-buttons">
+    <ul>
+        <
+    {% for m in menu %}
+
+      <a href="{% url m.url_name %}">
+          <button type="button" class="btn btn-warning" style="background: #fff200; font-size:16px;">{{ m.namemenu }}</button>
+      </a>
+    {% endfor %}
+        >
+    </ul>
+</div>
+{% endblock  %}
