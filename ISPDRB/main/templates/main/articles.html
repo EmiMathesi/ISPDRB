@@ -11,6 +11,13 @@
 </div>
 
 <div id="articles-main">
-    <h3>Статьи по категориям</h3>
+    <h2>Статьи по категори Горы</h2>
+    <h4>Автор статьи Эмиль Рахимов</h4>
+    {% for p in posts %}
+    <p>Время создания: {{p.time_create }}</p>
+    <p>Время последнего обновления:{{p.time_update}}</p>
+    <h1>{{p.title}}</h1>
+    <p>{{p.content}}</p>
+    {% endfor  %}
 </div>
 {% endblock  %}

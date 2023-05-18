@@ -30,8 +30,11 @@ body{
 }
 
 #articles-main{
+    position: fixed;
     background: red;
+    margin-left:15%;
     width: 85%;
+    height: 100%;
     float: left;
 }
 

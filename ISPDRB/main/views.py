@@ -1,5 +1,5 @@
 from django.shortcuts import render
-
+from .models import *
 # Create your views here.
 
 menu = [
@@ -22,8 +22,10 @@ def about(request):
     return render(request, 'main/about.html', context=context)
 
 def articles(request):
+    posts = Article.objects.all()
     context = {
         'menu': menu,
-        'title': 'Статьи'
+        'title': 'Статьи',
+        'posts': posts
     }
     return render(request, 'main/articles.html', context=context)
