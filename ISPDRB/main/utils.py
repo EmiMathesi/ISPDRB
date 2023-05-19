@@ -4,6 +4,7 @@ menu = [
     {'namemenu': 'О проекте', 'url_name': 'about'}
 ]
 
+
 class DataMixin:
     def get_user_context(self, **kwargs):
         context = kwargs
@@ -13,4 +14,3 @@ class DataMixin:
             user_menu.pop(1)
 
         context['menu'] = user_menu
-

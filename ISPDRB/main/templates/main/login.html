@@ -1,5 +1,16 @@
 {% extends 'main/base.html' %}
 
 {% block body %}
-<h1>Вход</h1>
+
+<h1>{{ title }}</h1>
+
+<form method="post">
+    <div class="about-block">
+        <h1>Вход</h1> <br>
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Войти</button>
+    </div>
+</form>
+
 {% endblock %}

@@ -1,14 +1,20 @@
 {% extends 'main/base.html' %}
 
 {% block body %}
-
 <h1>{{ title }}</h1>
 
 <form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="sumbit">Регистрация</button>
+    <div class="about-block">
+        {% csrf_token %}
+        <h1>Регистрация</h1><br>
 
+        {% for f in form %}
+        <p><label class="form-label" for="{{ f.id_for_label }}">{{f.label}}: </label>{{ f }}</p>
+        <div class="form-error">{{ f.errors }}</div>
+        {% endfor %}
+
+        <button type="submit" class="btn btn-warning">Регистрация</button>
+    </div>
 </form>
 
 {% endblock %}
