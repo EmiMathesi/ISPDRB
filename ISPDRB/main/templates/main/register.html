@@ -1,0 +1,14 @@
+{% extends 'main/base.html' %}
+
+{% block body %}
+
+<h1>{{ title }}</h1>
+
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="sumbit">Регистрация</button>
+
+</form>
+
+{% endblock %}
