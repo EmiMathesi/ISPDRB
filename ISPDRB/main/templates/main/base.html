@@ -34,9 +34,15 @@
             </li>
       </ul>
       <ul class="nav navbar-nav ms-auto  mb-2 mb-lg-0">
+          {% if request.user.is_authenticated%}
+          <li class="nav-item"><a class="nav-link" aria-current="page" href="#"> {{ user.username}} </a></li>
+          <li class="nav-item"><a class="nav-link" aria-current="page" href="#">|</a></li>
+          <li class="nav-item"><a class="nav-link" aria-current="page" href="{% url 'logout'%}">Выйти</a></li>
+          {% else %}
           <li class="nav-item"><a class="nav-link" aria-current="page" href="{% url 'register' %}"> Регистрация</a></li>
           <li class="nav-item"><a class="nav-link" aria-current="page" href="#">|</a></li>
           <li class="nav-item"><a class="nav-link" aria-current="page" href="{% url 'login'%}"> Войти</a></li>
+          {% endif %}
       </ul>
     </div>
   </div>
