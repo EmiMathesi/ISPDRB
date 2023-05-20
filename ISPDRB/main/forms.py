@@ -15,8 +15,8 @@ class RegisterUserForm(UserCreationForm):
     location = forms.CharField(label='Город', widget=forms.TextInput(attrs={'class': 'form-input'}))
 
     class Meta:
-        model = Profile
-        fields = ('user', 'first_name', 'last_name', 'email', 'password1', 'password2')
+        model = User
+        fields = ('username', 'first_name', 'last_name', 'email', 'password1', 'password2', 'location')
 
 
 class LoginUserForm(AuthenticationForm):

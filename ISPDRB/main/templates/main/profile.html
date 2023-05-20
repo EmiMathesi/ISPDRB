@@ -3,11 +3,11 @@
 {% block body %}
 <div class="about-block">
 <ul>
-    <img src="{{ user.profile.profile_pic.url }}" height=100 width=100><br><br>
-    <li>Логин: {{ user.username }}</li>
-    <li>Логин: {{ user.last_name }}</li>
-    <li>Имя пользователя: {{ user.first_name }}</li>
-    <li>Местоположение: {{ user.profile.location }}</li>
+    <img src="{{ profile.profile_pic.url }}" height=100 width=100><br><br>
+    <li>Логин: {{ profile.user.username }}</li>
+    <li>Логин: {{ profile.user.last_name }}</li>
+    <li>Имя пользователя: {{ profile.user.first_name }}</li>
+    <li>Местоположение: {{ profile.location }}</li>
 </ul>
 </div>
 {% endblock body %}

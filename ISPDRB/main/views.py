@@ -69,14 +69,9 @@ def logout_user(request):
     return redirect('login')
 
 
-class ShowProfile(TemplateView):
+class ShowProfile(DetailView):
     model = Profile
     template_name = 'main/profile.html'
-
-    def get_context_data(self,*args, **kwargs):
-        users = Profile.objects.all()
-        context = super().get_context_data(**kwargs)
-        context['user'] = self.request.user
-        return context
+    context_object_name = 'profile'
 
 
