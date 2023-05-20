@@ -1,8 +1,8 @@
 from django.contrib.auth import logout
 from django.contrib.auth.views import LoginView
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy
-from django.views.generic import CreateView
+from django.views.generic import CreateView, DetailView, TemplateView
 
 from .forms import RegisterUserForm, LoginUserForm
 from .models import *
@@ -67,3 +67,16 @@ class LoginUser(DataMixin, LoginView):
 def logout_user(request):
     logout(request)
     return redirect('login')
+
+
+class ShowProfile(TemplateView):
+    model = Profile
+    template_name = 'main/profile.html'
+
+    def get_context_data(self,*args, **kwargs):
+        users = Profile.objects.all()
+        context = super().get_context_data(**kwargs)
+        context['user'] = self.request.user
+        return context
+
+
