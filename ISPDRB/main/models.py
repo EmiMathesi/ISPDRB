@@ -2,7 +2,7 @@ from django.contrib.auth.models import User
 from django.db import models
 from django.db.models.signals import post_save
 from django.dispatch import receiver
-from django.urls import reverse
+from PIL import Image
 
 
 class Profile(models.Model):
@@ -10,16 +10,23 @@ class Profile(models.Model):
     # birth_date = models.DateField(null=True, blank=True)
     profile_pic = models.ImageField(null=True, blank=True, upload_to="profile/avatars")
     location = models.CharField(max_length=255, blank=True)
+    #
+    # def save(self, *args, **kwargs):
+    #     super().save()
+    #
+    #     img = Image.open(self.profile_pic.path)
+    #
+    #     if img.height > 100 or img.width > 100:
+    #         new_img = (100, 100)
+    #         img.thumbnail(new_img)
+    #         img.save(self.profile_pic.path)
 
     def __str__(self):
         return f"{self.user.first_name} {self.user.last_name}"
 
     class Meta:
-        verbose_name = 'Пользователь'
-        verbose_name_plural = 'Пользователи'
-
-    def get_absolute_url(self):
-        return reverse('profile', kwargs={'profile_id': self.pk})
+        verbose_name = 'Профиль'
+        verbose_name_plural = 'Профили'
 
 
 @receiver(post_save, sender=User)
@@ -47,3 +54,13 @@ class Article(models.Model):
     class Meta:
         verbose_name = 'Статья'
         verbose_name_plural = 'Статьи'
+
+class Category(models.Model):
+    name = models.CharField(max_length=255)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = 'Категория'
+        verbose_name_plural = 'Категории '

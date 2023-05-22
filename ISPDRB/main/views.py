@@ -1,12 +1,15 @@
 from django.contrib.auth import logout
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.views import LoginView
-from django.shortcuts import render, redirect, get_object_or_404
+from django.db import transaction
+from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
-from django.views.generic import CreateView, DetailView, TemplateView
+from django.views.generic import CreateView, DetailView
 
-from .forms import RegisterUserForm, LoginUserForm
+from .forms import RegisterUserForm, LoginUserForm, UserForm, ProfileForm
 from .models import *
 from .utils import DataMixin
+from django.contrib import messages
 
 # Create your views here.
 menu = [
@@ -19,7 +22,7 @@ menu = [
 def index(request):
     context = {
         'menu': menu,
-        'title': 'Природные достопримечательности РБ'
+        'title': 'Природные достопримечательности РБ',
     }
     return render(request, 'main/index.html', context=context)
 
@@ -72,6 +75,29 @@ def logout_user(request):
 class ShowProfile(DetailView):
     model = Profile
     template_name = 'main/profile.html'
-    context_object_name = 'profile'
 
+
+@login_required
+def update_profile(request):
+    if request.method == 'POST':
+        user_form = UserForm(request.POST, instance=request.user)
+        profile_form = ProfileForm(request.POST,
+                                   request.FILES,
+                                   instance=request.user.profile)
+        if user_form.is_valid() and profile_form.is_valid():
+            user_form.save()
+            profile_form.save()
+            messages.success(request, f'Ваш профиль успешно обновлен.')
+            return redirect('update_profile')
+
+    else:
+        user_form = UserForm(instance=request.user)
+        profile_form = ProfileForm(instance=request.user.profile)
+
+    context = {
+        'user_form': user_form,
+        'profile_form': profile_form,
+    }
+
+    return render(request, 'main/update_profile.html', context)
 

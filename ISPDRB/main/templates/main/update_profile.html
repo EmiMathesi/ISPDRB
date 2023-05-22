@@ -1,0 +1,36 @@
+{% extends 'main/base.html' %}
+{% load static%}
+
+{% block body %}
+<div class="about-block">
+    <ul>
+        <h1>Профиль</h1>
+        {% if user.profile.profile_pic %}
+        <img src="{{ user.profile.profile_pic.url }}" height=100 width=100><br><br>
+        {% else %}
+        <img src="{% static 'main/img/defaut_avatar.png' %}" height=100 width=100><br><br>
+        {% endif %}
+        <li>Логин: {{ user.username }}</li>
+        <li>Имя: {{ user.first_name }}</li>
+        <li>Фамилия: {{ user.last_name }}</li>
+        <li>Местоположение: {{ user.profile.location }}</li>
+    </ul>
+
+</div>
+
+<div class="about-block">
+<form method="POST" enctype="multipart/form-data">
+  {% csrf_token %}
+
+  {% for f in user_form %}
+  <p><label class="form-label" for="{{ f.id_for_label }}">{{f.label}}: </label>{{ f }}</p>
+  {% endfor %}
+
+  {% for f in profile_form %}
+  <p><label class="form-label" for="{{ f.id_for_label }}">{{f.label}}: </label>{{ f }}</p>
+  {% endfor %}
+
+  <button type="submit">Save changes</button>
+</form>
+</div>
+{% endblock body %}
