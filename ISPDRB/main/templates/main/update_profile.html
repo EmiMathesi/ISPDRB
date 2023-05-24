@@ -3,10 +3,11 @@
 
 {% block body %}
 <div class="about-block">
+    <h1>Профиль</h1>
     <ul>
-        <h1>Профиль</h1>
-        {% if user.profile.profile_pic %}
-        <img src="{{ user.profile.profile_pic.url }}" height=100 width=100><br><br>
+
+        {% if user.profile.avatar %}
+        <img src="{{ user.profile.avatar.url }}" height=100 width=100><br><br>
         {% else %}
         <img src="{% static 'main/img/defaut_avatar.png' %}" height=100 width=100><br><br>
         {% endif %}
@@ -15,22 +16,22 @@
         <li>Фамилия: {{ user.last_name }}</li>
         <li>Местоположение: {{ user.profile.location }}</li>
     </ul>
-
 </div>
 
 <div class="about-block">
-<form method="POST" enctype="multipart/form-data">
-  {% csrf_token %}
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <h1>Настройки</h1>
+        {% for f in user_form %}
+        <p><label class="form-label" for="{{ f.id_for_label }}">{{f.label}}: </label>{{ f }}</p>
+        {% endfor %}
 
-  {% for f in user_form %}
-  <p><label class="form-label" for="{{ f.id_for_label }}">{{f.label}}: </label>{{ f }}</p>
-  {% endfor %}
+        {% for f in profile_form %}
+        <p><label class="form-label" for="{{ f.id_for_label }}">{{f.label}}: </label>{{ f }}</p>
+        {% endfor %}
 
-  {% for f in profile_form %}
-  <p><label class="form-label" for="{{ f.id_for_label }}">{{f.label}}: </label>{{ f }}</p>
-  {% endfor %}
-
-  <button type="submit">Save changes</button>
-</form>
+        <button type="submit">Сохранить</button>
+    </form>
 </div>
+
 {% endblock body %}

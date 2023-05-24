@@ -32,4 +32,4 @@ class UserForm(forms.ModelForm):
 class ProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
-        fields = ('profile_pic', 'location')
+        fields = ('avatar', 'location')

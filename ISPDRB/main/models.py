@@ -7,19 +7,9 @@ from PIL import Image
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    # birth_date = models.DateField(null=True, blank=True)
-    profile_pic = models.ImageField(null=True, blank=True, upload_to="profile/avatars")
+    birth_date = models.DateField(null=True, blank=True)
+    avatar = models.ImageField(null=True, blank=True, upload_to="profile/avatars")
     location = models.CharField(max_length=255, blank=True)
-    #
-    # def save(self, *args, **kwargs):
-    #     super().save()
-    #
-    #     img = Image.open(self.profile_pic.path)
-    #
-    #     if img.height > 100 or img.width > 100:
-    #         new_img = (100, 100)
-    #         img.thumbnail(new_img)
-    #         img.save(self.profile_pic.path)
 
     def __str__(self):
         return f"{self.user.first_name} {self.user.last_name}"
@@ -54,6 +44,7 @@ class Article(models.Model):
     class Meta:
         verbose_name = 'Статья'
         verbose_name_plural = 'Статьи'
+
 
 class Category(models.Model):
     name = models.CharField(max_length=255)
