@@ -37,10 +37,34 @@ def about(request):
 
 def articles(request):
     posts = Article.objects.all()
+    categories = Category.objects.all()
+    context = {
+        'menu': menu,
+        'title': 'Статьи',
+        'posts': posts,
+        'categories': categories
+    }
+    return render(request, 'main/articles.html', context=context)
+
+
+def articles_detail(request, article_id):
+    posts = Article.objects.filter(pk=article_id)
     context = {
         'menu': menu,
         'title': 'Статьи',
         'posts': posts
+    }
+    return render(request, 'main/article_detail.html', context=context)
+
+
+def show_category(request, category_id):
+    posts = Article.objects.filter(category_id=category_id)
+    categories = Category.objects.all()
+    context = {
+        'menu': menu,
+        'title': 'Статьи',
+        'posts': posts,
+        'categories': categories
     }
     return render(request, 'main/articles.html', context=context)
 
@@ -87,7 +111,6 @@ def update_profile(request):
         if user_form.is_valid() and profile_form.is_valid():
             user_form.save()
             profile_form.save()
-            messages.success(request, 'Авторизация успешна!')
             return redirect('update_profile')
 
     else:

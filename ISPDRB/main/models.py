@@ -3,6 +3,7 @@ from django.db import models
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from PIL import Image
+from django.urls import reverse
 
 
 class Profile(models.Model):
@@ -31,6 +32,8 @@ def save_user_profile(sender, instance, **kwargs):
 
 
 class Article(models.Model):
+    autor = models.ForeignKey(User, on_delete=models.CASCADE)
+    category = models.ForeignKey('Category', on_delete=models.CASCADE, null=True)
     title = models.CharField(max_length=255)
     content = models.TextField(blank=False)
     photo = models.ImageField(upload_to="photos/%Y/%m/%d/")
@@ -38,8 +41,12 @@ class Article(models.Model):
     time_update = models.DateTimeField(auto_now=True)
     is_published = models.BooleanField(default=True)
 
+
     def __str__(self):
         return self.title
+
+    def get_absolute_url(self):
+        return reverse('articles_detail', kwargs={'article_id': self.pk})
 
     class Meta:
         verbose_name = 'Статья'
@@ -47,11 +54,16 @@ class Article(models.Model):
 
 
 class Category(models.Model):
-    name = models.CharField(max_length=255)
+    name = models.CharField(max_length=255, db_index=True)
+    content = models.TextField(blank=False)
 
     def __str__(self):
         return self.name
 
+    def get_absolute_url(self):
+        return reverse('category', kwargs={'category_id': self.pk})
+
     class Meta:
         verbose_name = 'Категория'
-        verbose_name_plural = 'Категории '
+        verbose_name_plural = 'Категории'
+

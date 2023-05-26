@@ -1,0 +1,22 @@
+{% extends 'main/base.html' %}
+
+{% load static %}
+
+{% block body %}
+<div id="articles-main">
+    <h1 class="about-block">Статьи на сайте</h1>
+    <div class="about-block">
+    <p>Автор статьи: {{ posts.autor }}</p>
+    {% if posts.autor.profile.avatar %}
+    <a href="{% url 'profile' posts.autor.id %}"><img src="{{ posts.autor.profile.avatar.url }}" height=30 width=30><br><br></a>
+    {% else %}
+    <img src="{% static 'main/img/defaut_avatar.png' %}" height=30 width=30 ><br><br>
+    {% endif %}
+    <p>Время создания: {{Article.time_create }}</p>
+    <p>Время последнего обновления:{{posts.time_update}}</p>
+    <img src="{{ p.photo.url }}" height=300 width=300><br><br>
+    <h1>{{ posts.title }}</h1>
+    <p>{{ posts.content }}</p>
+    </div>
+</div>
+{% endblock %}

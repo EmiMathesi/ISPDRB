@@ -22,7 +22,7 @@ body{
 #articles-category{
     position: fixed;
     float: left;
-    background: #cac9cb;
+    background: black;
     width: 15%;
     height: 100%;
     padding-top: 3%;
@@ -30,7 +30,7 @@ body{
 }
 
 #articles-main{
-    position: fixed;
+
     background: black;
     margin-left:15%;
     width: 85%;

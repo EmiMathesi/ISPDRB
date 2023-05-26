@@ -1,23 +1,39 @@
 {% extends 'main/base.html' %}
+{% load static %}
 
 {% block body  %}
 <div id="articles-category">
-    <h3>Категории</h3>
+    <h3><a href="{% url 'articles' %}">Категории</a></h3>
     <ul>
-        <a href=""><li>Пещеры</li></a>
-        <a href=""><li>Озера</li></a>
-        <a href=""><li>Горы</li></a>
+        {% for c in categories %}
+        <li><a href="{{ c.get_absolute_url }}">{{ c.name }}</a></li>
+        {% endfor %}
     </ul>
 </div>
 
 <div id="articles-main">
-    <h2>Статьи по категори Горы</h2>
-    <h4>Автор статьи Эмиль Рахимов</h4>
+    <h1 class="about-block">Статьи на сайте</h1>
+    {% if posts %}
     {% for p in posts %}
+    <div class="about-block">
+    <p>Автор статьи: {{p.autor }}</p>
+    {% if p.autor.profile.avatar %}
+    <a href="{% url 'profile' p.autor.id %}">    <img src="{{ p.autor.profile.avatar.url }}" height=30 width=30><br><br></a>
+    {% else %}
+    <img src="{% static 'main/img/defaut_avatar.png' %}" height=30 width=30 ><br><br>
+    {% endif %}
     <p>Время создания: {{p.time_create }}</p>
     <p>Время последнего обновления:{{p.time_update}}</p>
+    <img src="{{ p.photo.url }}" height=300 width=300><br><br>
     <h1>{{p.title}}</h1>
     <p>{{p.content}}</p>
+    <a href="#">
+    <button type="button" class="btn btn-warning" style="background: #fff200; font-size:16px;"><a href="{{ p.get_absolute_url }}">Читать</a>
+    </a>
+    </div>
     {% endfor  %}
+    {% else %}
+    <h1>На данный момент статей в данной категории нет</h1>
+    {% endif %}
 </div>
 {% endblock  %}
