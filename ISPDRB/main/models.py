@@ -56,6 +56,7 @@ class Article(models.Model):
 class Comments(models.Model):
     article = models.ForeignKey(Article, on_delete=models.CASCADE)
     autor = models.ForeignKey(User, on_delete=models.CASCADE)
+    time_create = models.DateTimeField(auto_now_add=True)
     content = models.TextField(blank=False)
 
     def __str__(self):
