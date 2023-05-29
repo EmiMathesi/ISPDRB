@@ -35,6 +35,7 @@
     </div>
     {% for c in comments %}
     <div class="about-block">
+    <p>Добавлен {{ c.time_create }}</p>
     {% if c.autor.profile.avatar %}
     <a href="{% url 'profile' c.autor.id %}">    <img src="{{ c.autor.profile.avatar.url }}" height=30 width=30><br><br></a>
     {% else %}
