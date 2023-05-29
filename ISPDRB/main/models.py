@@ -53,6 +53,19 @@ class Article(models.Model):
         verbose_name_plural = 'Статьи'
 
 
+class Comments(models.Model):
+    article = models.ForeignKey(Article, on_delete=models.CASCADE)
+    autor = models.ForeignKey(User, on_delete=models.CASCADE)
+    content = models.TextField(blank=False)
+
+    def __str__(self):
+        return self.content
+
+    class Meta:
+        verbose_name = 'Комментарий'
+        verbose_name_plural = 'Комментарии'
+
+
 class Category(models.Model):
     name = models.CharField(max_length=255, db_index=True)
     content = models.TextField(blank=False)

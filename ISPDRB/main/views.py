@@ -1,15 +1,13 @@
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.views import LoginView
-from django.db import transaction
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, DetailView
 
-from .forms import RegisterUserForm, LoginUserForm, UserForm, ProfileForm
+from .forms import RegisterUserForm, LoginUserForm, UserForm, ProfileForm, AddCommentForm
 from .models import *
 from .utils import DataMixin
-from django.contrib import messages
 
 # Create your views here.
 menu = [
@@ -42,17 +40,32 @@ def articles(request):
         'menu': menu,
         'title': 'Статьи',
         'posts': posts,
-        'categories': categories
+        'categories': categories,
     }
     return render(request, 'main/articles.html', context=context)
 
 
 def articles_detail(request, article_id):
-    posts = Article.objects.filter(pk=article_id)
+    posts = get_object_or_404(Article, id=article_id)
+    comments = Comments.objects.filter(article_id=article_id)
+    if request.method == 'POST':
+        comments_form = AddCommentForm(request.POST)
+        if comments_form.is_valid():
+            new_comment = comments_form.save(commit=False)
+            new_comment.article = posts
+            new_comment.autor = request.user
+            new_comment.save()
+            return redirect('articles')
+
+    else:
+        comments_form = AddCommentForm()
+
     context = {
         'menu': menu,
         'title': 'Статьи',
-        'posts': posts
+        'posts': posts,
+        'comments': comments,
+        'comments_form': comments_form,
     }
     return render(request, 'main/article_detail.html', context=context)
 

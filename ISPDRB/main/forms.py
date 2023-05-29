@@ -2,7 +2,7 @@ from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 
-from main.models import Profile
+from main.models import Profile, Comments
 
 
 class RegisterUserForm(UserCreationForm):
@@ -33,3 +33,9 @@ class ProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
         fields = ('avatar', 'location')
+
+
+class AddCommentForm(forms.ModelForm):
+    class Meta:
+        model = Comments
+        fields = ('content',)

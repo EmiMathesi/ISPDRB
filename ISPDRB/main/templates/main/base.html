@@ -34,7 +34,7 @@
             </li>
       </ul>
       <ul class="nav navbar-nav ms-auto  mb-2 mb-lg-0">
-        {% if request.user.is_authenticated%}
+        {% if request.user.is_authenticated %}
         {% if user.profile.avatar %}
         <li class="nav-item"><a class="nav-link" aria-current="page" href="{% url 'profile' user.profile.id %}"> <img src="{{ user.profile.avatar.url }}" height=35 width=35> </a></li>
         {% else %}
