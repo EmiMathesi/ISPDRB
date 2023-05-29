@@ -17,7 +17,9 @@
     <img src="{{ posts.photo.url }}" height=300 width=300><br><br>
     <h1>{{posts.title}}</h1>
     <p>{{posts.content|linebreaks}}</p>
+    <div id="map" style="width: 500px; height: 300px"></div>
     </div>
+
     <div class="about-block">
     {% if request.user.is_authenticated %}
         <form method="POST" enctype="multipart/form-data">
