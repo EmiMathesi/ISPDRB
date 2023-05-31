@@ -12,7 +12,7 @@ def ajax_login_required(view_func):
     """
     @wraps(view_func)
     def wrapper(self, request, *args, **kwargs):
-        if not request.is_ajax():
+        if not request.headers.get('x-requested-with') == 'XMLHttpRequest':
             return HttpResponseForbidden()
         if request.user.is_authenticated:
             return view_func(self, request, *args, **kwargs)
