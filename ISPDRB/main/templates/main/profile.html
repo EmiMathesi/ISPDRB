@@ -6,10 +6,10 @@
 <ul>
     <h1>Профиль</h1>
     {% if profile.avatar %}
-    <img src="{{ profile.avatar.url }}" height=100 width=100><br><br>
+    <img class="avatar" src="{{ profile.avatar.url }}" height=100 width=100><br><br>
 
     {% else %}
-    <img src="{% static 'main/img/defaut_avatar.png' %}" height=100 width=100><br><br>
+    <img class="avatar" src="{% static 'main/img/defaut_avatar.png' %}" height=100 width=100><br><br>
     {% endif %}
     <li>Дата регистрации: {{ profile.user.date_joined }}</li>
     <li>Последний вход: {{ profile.user.last_login }}</li>

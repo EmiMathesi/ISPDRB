@@ -2,6 +2,7 @@
 {% load static %}
 
 {% block body  %}
+
 <div id="articles-category">
     <h3><a href="{% url 'articles' %}">Категории</a></h3>
     <ul>
@@ -18,14 +19,14 @@
     <div class="about-block">
     <p>Автор статьи: {{p.autor }}</p>
     {% if p.autor.profile.avatar %}
-    <a href="{% url 'profile' p.autor.id %}">    <img src="{{ p.autor.profile.avatar.url }}" height=30 width=30><br><br></a>
+    <a href="{% url 'profile' p.autor.id %}">    <img class="avatar" src="{{ p.autor.profile.avatar.url }}" height=30 width=30><br><br></a>
     {% else %}
-    <img src="{% static 'main/img/defaut_avatar.png' %}" height=30 width=30 ><br><br>
+    <img class="avatar" src="{% static 'main/img/defaut_avatar.png' %}" height=30 width=30 ><br><br>
     {% endif %}
-    <p>Время создания: {{p.time_create }}</p>
-    <p>Время последнего обновления:{{p.time_update}}</p>
-    <img src="{{ p.photo.url }}" height=300 width=300><br><br>
+    <p>Создана: {{p.time_create }}</p>
+    <p>Обновлено: {{p.time_update}}</p>
     <h1>{{p.title}}</h1>
+    <img src="{{ p.photo.url }}" height=300 width=300><br><br>
     <p>{{p.content|linebreaks}}</p>
     <a href="{{ p.get_absolute_url }}">Читать</a>
     </div>
@@ -34,4 +35,5 @@
     <h1>На данный момент статей в данной категории нет</h1>
     {% endif %}
 </div>
+
 {% endblock  %}

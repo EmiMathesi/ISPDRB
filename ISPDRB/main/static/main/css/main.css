@@ -1,7 +1,17 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+.navbar{
+    background-color: #b477f6;
+    height: 5%;
+    font-size: 20px;
+}
+
 body{
     background: black;
     color:white;
-    font-size: 20px;
 }
 
 #site-logo{
@@ -13,10 +23,32 @@ body{
         margin-top: -5px;
 }
 
-.map{
-  position: fixed;
-  width: 10%;
-  height: 10%;
+.avatar{
+    border-radius: 100px;
+}
+
+.open-panel-button {
+    background-color: #e53935;
+    border: none;
+    color: white;
+    width: 50%;
+    height: 5vh;
+    float:left;
+}
+
+.add-marker-button {
+    background-color: #43a047;
+    border: none;
+    color: white;
+    width: 50%;
+    height: 5vh;
+    float:left;
+}
+
+.djeym-button-bar {
+    font-family: Roboto, sans-serif !important;
+    font-size: 16px;
+    display: none;
 }
 
 #articles-category{

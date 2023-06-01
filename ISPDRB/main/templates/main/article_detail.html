@@ -3,53 +3,56 @@
 {% load i18n static djeymtags %}
 
 {% block body  %}
+
 <div id="articles-main">
+
     <h1 class="about-block">Статьи на сайте</h1>
+
+    <!--Статья-->
     <div class="about-block">
-    <p>Автор статьи: {{posts.autor }}</p>
-    {% if posts.autor.profile.avatar %}
-    <a href="{% url 'profile' posts.autor.id %}">    <img src="{{ posts.autor.profile.avatar.url }}" height=30 width=30><br><br></a>
-    {% else %}
-    <img src="{% static 'main/img/defaut_avatar.png' %}" height=30 width=30 ><br><br>
-    {% endif %}
-    <p>Время создания: {{posts.time_create }}</p>
-    <p>Время последнего обновления:{{posts.time_update}}</p>
-    <img src="{{ posts.photo.url }}" height=300 width=300><br><br>
-    <h1>{{posts.title}}</h1>
-    <p>{{posts.content|linebreaks}}</p>
+        <p>Автор статьи: {{posts.autor }}</p>
+        {% if posts.autor.profile.avatar %}
+        <a  href="{% url 'profile' posts.autor.id %}">    <img class="avatar" src="{{ posts.autor.profile.avatar.url }}" height=40 width=40><br><br></a>
+        {% else %}
+        <img class="avatar" src="{% static 'main/img/defaut_avatar.png' %}" height=40 width=40 ><br><br>
+        {% endif %}
+        <p>Время создания: {{posts.time_create }}</p>
+        <p>Время последнего обновления:{{posts.time_update}}</p>
+        <h1>{{posts.title}}</h1>
+        <img src="{{ posts.photo.url }}" height=300 width=300><br><br>
+        <p>{{posts.content|linebreaks}}</p>
+        <!--    <div id="map" style="width: 100wh; height: 200px;"></div>-->
+    </div>
 
-    <div id="djeym-app" class="map"></div>
-    <script type="text/javascript" src="{% static "djeym/js/jquery.min.js" %}"></script>
-    <script src="{% static "djeym/js/jquery-regex.min.js" %}"></script>
-    {% djeym_yandex_map slug='karta' lang=request.LANGUAGE_CODE %}
-</div>
+    <!--Форма для отправки комментария-->
+    <div class="about-block">
+        {% if request.user.is_authenticated %}
+        <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <h1>Комментарий</h1>
+        {% for f in comments_form %}
+        <p><label class="form-label" for="{{ f.id_for_label }}">{{f.label}}: </label>{{ f }}</p>
+        {% endfor %}
+        <button type="submit">Сохранить</button>
+        </form>
+        {% else %}
+        <p>Вы не авторизованы, авторизуйтесь!</p>
+        {% endif %}
+    </div>
 
-<div class="about-block">
-    {% if request.user.is_authenticated %}
-    <form method="POST" enctype="multipart/form-data">
-    {% csrf_token %}
-    <h1>Комментарий</h1>
-    {% for f in comments_form %}
-    <p><label class="form-label" for="{{ f.id_for_label }}">{{f.label}}: </label>{{ f }}</p>
-    {% endfor %}
-    <button type="submit">Сохранить</button>
-    </form>
-    {% else %}
-    <p>Вы не авторизованы, авторизуйтесь!</p>
-    {% endif %}
-</div>
-
-{% for c in comments %}
-<div class="about-block">
-    <p>Добавлен {{ c.time_create }}</p>
-    {% if c.autor.profile.avatar %}
-    <a href="{% url 'profile' c.autor.id %}">    <img src="{{ c.autor.profile.avatar.url }}" height=30 width=30><br><br></a>
-    {% else %}
-    <img src="{% static 'main/img/defaut_avatar.png' %}" height=30 width=30 ><br><br>
-    {% endif %}
-    <p>Автор: {{ c.autor }}</p>
-    <p>Комментарий: {{ c.content }}</p>
+    <!--Комментарии-->
+    {% for c in comments %}
+    <div class="about-block">
+        <p>Добавлен {{ c.time_create }}</p>
+        {% if c.autor.profile.avatar %}
+        <a href="{% url 'profile' c.autor.id %}"><img class="avatar" src="{{ c.autor.profile.avatar.url }}" height=30 width=30><br><br></a>
+        {% else %}
+        <img class="avatar" src="{% static 'main/img/defaut_avatar.png' %}" height=30 width=30 ><br><br>
+        {% endif %}
+        <p>Автор: {{ c.autor }}</p>
+        <p>Комментарий: {{ c.content }}</p>
     </div>
     {% endfor %}
+
 </div>
 {% endblock  %}

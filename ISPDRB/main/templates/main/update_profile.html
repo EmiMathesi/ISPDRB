@@ -7,9 +7,9 @@
     <ul>
 
         {% if user.profile.avatar %}
-        <img src="{{ user.profile.avatar.url }}" height=100 width=100><br><br>
+        <img class="avatar" src="{{ user.profile.avatar.url }}" height=100 width=100><br><br>
         {% else %}
-        <img src="{% static 'main/img/defaut_avatar.png' %}" height=100 width=100><br><br>
+        <img class="avatar" src="{% static 'main/img/defaut_avatar.png' %}" height=100 width=100><br><br>
         {% endif %}
         <li>Логин: {{ user.username }}</li>
         <li>Имя: {{ user.first_name }}</li>
