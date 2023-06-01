@@ -4,22 +4,24 @@
 
 {% block body %}
 <style>
+body{
+ color: black;
+}
+
 ::-webkit-scrollbar {
   width: 0;
 }
 </style>
 
 <!--Кнопки взаимодействия с картой-->
-<div class="djeym-button-bar">
-  <button id="djeym-open-panel" type="button" class="open-panel-button">
-    <span class="mdi mdi-arrow-expand-right"></span>
-    Открыть панель
-  </button>
-  <button id="djeym-add-marker" type="button" class="add-marker-button">
-    <span class="mdi mdi-map-marker-plus"></span>
-    Добавить маркер
-  </button>
-</div>
+<button id="djeym-open-panel" type="button" class="open-panel-button">
+  <span class="mdi mdi-arrow-expand-right"></span>
+  Открыть панель
+</button>
+<button id="djeym-add-marker" type="button" class="add-marker-button">
+  <span class="mdi mdi-map-marker-plus"></span>
+  Добавить маркер
+</button>
 
 <!--Карта-->
 <div id="djeym-app" class="djeym"></div>

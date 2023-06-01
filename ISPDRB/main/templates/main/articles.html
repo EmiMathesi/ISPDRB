@@ -3,37 +3,60 @@
 
 {% block body  %}
 
-<div id="articles-category">
-    <h3><a href="{% url 'articles' %}">Категории</a></h3>
-    <ul>
-        {% for c in categories %}
-        <li><a href="{{ c.get_absolute_url }}">{{ c.name }}</a></li>
-        {% endfor %}
-    </ul>
+<div class="container-fluid">
+    <div class="row">
+
+        <!--Список категорий-->
+        <div class="col-lg-2 col-md-2 col-sm-3 col-xs-12"">
+            <div id="articles-category">
+                <h3><a href="{% url 'articles' %}">Категории</a></h3>
+                <ul>
+                    {% for c in categories %}
+                    <li><a href="{{ c.get_absolute_url }}">{{ c.name }}</a></li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+
+        <!--Статьи -->
+        <div class="col-lg-10 col-md-10 col-sm-9 col-xs-12">
+            <div id="articles-main">
+                <h1 style="text-align:center">Статьи на сайте</h1>
+                {% if posts %}
+                {% for p in posts %}
+                <div class="articles-main-block">
+                    <div class="articles-main-block-head">
+                        <div class="articles-autor">
+                            <ul>
+                                <li>Автор статьи: <a style="color: #b477f6" href="{% url 'profile' p.autor.id %}"> {{p.autor }}</a></li>
+                                {% if p.autor.profile.avatar %}
+                                <li style="margin-left: 10px;"><a href="{% url 'profile' p.autor.id %}"><img class="avatar" src="{{ p.autor.profile.avatar.url }}" height=30 width=30></a></li>
+                                {% else %}
+                                <li style="margin-left: 10px;"><img class="avatar" src="{% static 'main/img/defaut_avatar.png' %}" height=30 width=30 ><li>
+                                {% endif %}
+                            </ul>
+                        </div>
+                        <p style="text-align:right;">Создана: {{p.time_create }}</p>
+                        <p style="text-align:right;">Последнее обновление: {{p.time_update}}</p>
+                    </div>
+
+                    <h3>{{p.title}}</h3>
+                    <img src="{{ p.photo.url }}" width=100% height=300px >
+                    <p>{{p.content|linebreaks|truncatewords:25}}</p>
+                    <div class="articles-main-block-footer">
+                        <a style="color: #9147ff; font-size: 20px;" href="{{ p.get_absolute_url }}">Читать полностью</a>
+                    </div>
+
+                </div>
+                {% endfor  %}
+
+                {% else %}
+                <h1>На данный момент статей в данной категории нет</h1>
+                {% endif %}
+            </div>
+        </div>
+    </div>
 </div>
 
-<div id="articles-main">
-    <h1 class="about-block">Статьи на сайте</h1>
-    {% if posts %}
-    {% for p in posts %}
-    <div class="about-block">
-    <p>Автор статьи: {{p.autor }}</p>
-    {% if p.autor.profile.avatar %}
-    <a href="{% url 'profile' p.autor.id %}">    <img class="avatar" src="{{ p.autor.profile.avatar.url }}" height=30 width=30><br><br></a>
-    {% else %}
-    <img class="avatar" src="{% static 'main/img/defaut_avatar.png' %}" height=30 width=30 ><br><br>
-    {% endif %}
-    <p>Создана: {{p.time_create }}</p>
-    <p>Обновлено: {{p.time_update}}</p>
-    <h1>{{p.title}}</h1>
-    <img src="{{ p.photo.url }}" height=300 width=300><br><br>
-    <p>{{p.content|linebreaks}}</p>
-    <a href="{{ p.get_absolute_url }}">Читать</a>
-    </div>
-    {% endfor  %}
-    {% else %}
-    <h1>На данный момент статей в данной категории нет</h1>
-    {% endif %}
-</div>
 
 {% endblock  %}

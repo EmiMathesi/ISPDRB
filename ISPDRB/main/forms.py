@@ -36,7 +36,6 @@ class ProfileForm(forms.ModelForm):
 
 
 class AddCommentForm(forms.ModelForm):
-    content = forms.CharField(label='Оставить комментарий', widget=forms.TextInput(attrs={'class': 'form-input'}))
     class Meta:
         model = Comments
         fields = ('content',)

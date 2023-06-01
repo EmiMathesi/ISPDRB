@@ -25,14 +25,6 @@ def index(request):
     return render(request, 'main/index.html', context=context)
 
 
-def about(request):
-    context = {
-        'menu': menu,
-        'title': 'О проекте'
-    }
-    return render(request, 'main/about.html', context=context)
-
-
 def articles(request):
     posts = Article.objects.all()
     categories = Category.objects.all()
@@ -45,9 +37,22 @@ def articles(request):
     return render(request, 'main/articles.html', context=context)
 
 
+def show_category(request, category_id):
+    posts = Article.objects.filter(category_id=category_id)
+    categories = Category.objects.all()
+    context = {
+        'menu': menu,
+        'title': 'Статьи',
+        'posts': posts,
+        'categories': categories
+    }
+    return render(request, 'main/articles.html', context=context)
+
+
 def articles_detail(request, article_id):
     posts = get_object_or_404(Article, id=article_id)
     comments = Comments.objects.filter(article_id=article_id)
+    categories = Category.objects.all()
     if request.method == 'POST':
         comments_form = AddCommentForm(request.POST)
         if comments_form.is_valid():
@@ -64,22 +69,19 @@ def articles_detail(request, article_id):
         'menu': menu,
         'title': 'Статьи',
         'posts': posts,
+        'categories': categories,
         'comments': comments,
         'comments_form': comments_form,
     }
     return render(request, 'main/article_detail.html', context=context)
 
 
-def show_category(request, category_id):
-    posts = Article.objects.filter(category_id=category_id)
-    categories = Category.objects.all()
+def about(request):
     context = {
         'menu': menu,
-        'title': 'Статьи',
-        'posts': posts,
-        'categories': categories
+        'title': 'О проекте'
     }
-    return render(request, 'main/articles.html', context=context)
+    return render(request, 'main/about.html', context=context)
 
 
 class RegisterUser(DataMixin, CreateView):
@@ -131,6 +133,7 @@ def update_profile(request):
         profile_form = ProfileForm(instance=request.user.profile)
 
     context = {
+        'menu': menu,
         'user_form': user_form,
         'profile_form': profile_form,
     }
