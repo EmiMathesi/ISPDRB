@@ -9,7 +9,7 @@ from django.urls import reverse
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     birth_date = models.DateField(null=True, blank=True)
-    avatar = models.ImageField(null=True, blank=True, upload_to="profile/avatars")
+    avatar = models.ImageField(null=True, blank=True, upload_to="Поу")
     location = models.CharField(max_length=255, blank=True)
 
     def __str__(self):

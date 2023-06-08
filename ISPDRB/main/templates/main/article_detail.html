@@ -64,16 +64,17 @@
             <div class="articles-detail-block">
                 <div class="articles-autor">
                     <ul>
-                        <li>Автор комментария:<a style="color: #b477f6" href="{% url 'profile' posts.autor.id %}"> {{posts.autor }}</a></li>
-                        {% if posts.autor.profile.avatar %}
-                        <li style="margin-left: 10px;"><a href="{% url 'profile' posts.autor.id %}"><img class="avatar" src="{{ posts.autor.profile.avatar.url }}" height=30 width=30></a></li>
+                        <li>Автор комментария:</li><a style="color: #b477f6" href="{% url 'profile' c.autor.id %}">    {{ c.autor }}</a>
+                        {% if c.autor.profile.avatar %}
+                        <li><a style="color: #b477f6" href="{% url 'profile' c.autor.id %}">    <img class="avatar" src="{{ c.autor.profile.avatar.url }}" height=30 width=30></a></li>
                         {% else %}
-                        <li style="margin-left: 10px;"><img class="avatar" src="{% static 'main/img/defaut_avatar.png' %}" height=30 width=30 ><li>
+                        <li>{{ c.autor }}</li>
+                        <img class="avatar" src="{% static 'main/img/defaut_avatar.png' %}" height=30 width=30 ><br><br>
                         {% endif %}
                     </ul>
                 </div>
-                <p style="text-align:right;">{{ c.time_create }}</p>
-                <p>Комментарий: <br> {{ c.content }}</p>
+            <p style="text-align:right;">{{ c.time_create }}</p>
+            <p>Комментарий: <br> {{ c.content }}</p>
             </div>
             {% endfor %}
         </div>

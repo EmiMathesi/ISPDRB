@@ -1152,13 +1152,13 @@ class Polyline(models.Model):
         on_delete=models.CASCADE)
 
     category = models.ForeignKey(
-        CategoryPlacemark,
+        CategoryPolyline,
         verbose_name=_('Category'),
         related_name='polylines',
         on_delete=models.CASCADE)
 
     subcategories = models.ManyToManyField(
-        SubCategoryPlacemark,
+        SubCategoryPolyline,
         verbose_name=_('Subcategories'),
         related_name='polylines',
         blank=True)
@@ -1242,13 +1242,13 @@ class Polygon(models.Model):
         on_delete=models.CASCADE)
 
     category = models.ForeignKey(
-        CategoryPlacemark,
+        CategoryPolygon,
         verbose_name=_('Category'),
         related_name='polygons',
         on_delete=models.CASCADE)
 
     subcategories = models.ManyToManyField(
-        SubCategoryPlacemark,
+        SubCategoryPolygon,
         verbose_name=_('Subcategories'),
         related_name='polygons',
         blank=True)
